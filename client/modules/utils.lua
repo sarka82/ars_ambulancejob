@@ -22,7 +22,7 @@ peds = {}
 
 function utils.showNotification(msg, type)
     lib.notify({
-        title = 'Ars Ambulancejob',
+        title = 'Médecins',
         description = msg,
         type = type and type or 'info'
     })

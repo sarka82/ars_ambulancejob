@@ -28,6 +28,7 @@ local Wait                            = Wait
 local usingStretcher = false
 local currentStretcher = nil
 local patientOnStretcher = nil
+local stretcherOwner = 0
 
 local function isEmsVehicle(vehicle)
     local vehicleModel = GetEntityModel(vehicle)
@@ -50,7 +51,7 @@ local function useStretcher(stretcher)
     SetEntityAsMissionEntity(stretcher)
 
 
-    lib.showTextUI('[G] - Place stretcher on the ground', {
+    lib.showTextUI('[G] - Pour placer au sol', {
         position = "top-center",
         icon = 'bed',
         style = {
@@ -113,32 +114,46 @@ function putOnStretcher(toggle, target)
     patientOnStretcher = toggle and target or nil
 end
 
+
 RegisterNetEvent("ars_ambulancejob:togglePatientFromVehicle", function(veh)
     local playerPed = cache.ped or PlayerPedId()
     local vehicle = NetworkGetEntityFromNetworkId(veh)
     local currentVehicle = cache.vehicle
-    local seatToGo = nil
+    local seatToGo = 2
+    local place = 0
 
     DetachEntity(playerPed)
 
     utils.debug(currentVehicle)
 
     if not currentVehicle then
-        local seats = GetVehicleMaxNumberOfPassengers(vehicle)
-        for i = 0, seats - 1 do
-            if IsVehicleSeatFree(vehicle, i) then
-                seatToGo = i
-                break
-            end
+        --local seats = GetVehicleMaxNumberOfPassengers(vehicle)
+        --if IsVehicleSeatFree(vehicle, 2) then
+        --    seatToGo = 2
+        --    TaskWarpPedIntoVehicle(playerPed, vehicle, seatToGo)
+        --end
+        --seatToGo = nil
+        if IsVehicleSeatFree(vehicle, seatToGo) then
+            place = 1
+        else
+            place = 0
         end
 
-        if seatToGo then
+        if seatToGo and place == 1 then
             TaskWarpPedIntoVehicle(playerPed, vehicle, seatToGo)
         end
     else
-        TaskLeaveVehicle(playerPed, currentVehicle, 16)
+        if IsVehicleSeatFree(vehicle, seatToGo) then
+            place = 1
+        else
+            place = 0
+        end
+        if place == 0 then
+            TaskLeaveVehicle(playerPed, currentVehicle, 16)
+        end
     end
 end)
+
 
 RegisterNetEvent("ars_ambulancejob:putOnStretcher", function(toggle)
     local playerPed = cache.ped or PlayerPedId()
@@ -164,6 +179,7 @@ local function vehicleInteractions()
                 return isEmsVehicle(entity) and not usingStretcher
             end,
             onSelect = function(data)
+                stretcherOwner = cache.ped or PlayerPedId()
                 local vehicle = data.entity
                 if not Entity(vehicle).state.stretcher then Entity(vehicle).state.stretcher = Config.AmbulanceStretchers end
                 if Entity(vehicle).state.stretcher < 1 then return utils.showNotification(locale("no_stretcher_found")) end
@@ -196,7 +212,7 @@ local function vehicleInteractions()
             label = locale('put_patient_in_vehicle'),
             groups = Config.EmsJobs,
             canInteract = function(entity, distance, coords, name)
-                return isEmsVehicle(entity) and usingStretcher and patientOnStretcher
+                return isEmsVehicle(entity) and usingStretcher and patientOnStretcher and IsVehicleSeatFree(entity, 2)
             end,
             onSelect = function(data)
                 local dataToSend = {}
@@ -214,7 +230,7 @@ local function vehicleInteractions()
             label = locale('take_patient_from_vehicle'),
             groups = Config.EmsJobs,
             canInteract = function(entity, distance, coords, name)
-                return isEmsVehicle(entity) and Entity(entity).state?.patient
+                return isEmsVehicle(entity) and Entity(entity).state?.patient and not IsVehicleSeatFree(entity, 2) and not patientOnStretcher
             end,
             onSelect = function(data)
                 local dataToSend = {}
@@ -241,7 +257,7 @@ local function stretcherInteraction()
             icon = 'fa-solid fa-bed',
             distance = 3,
             canInteract = function()
-                return not usingStretcher
+                return not usingStretcher and stretcherOwner
             end,
             onSelect = function(data)
                 useStretcher(data.entity)

@@ -81,7 +81,7 @@ function checkInjuries(data)
                                             dataToSend.bone = v.bone
                                             TriggerServerEvent("ars_ambulancejob:healPlayer", dataToSend)
 
-                                            utils.addRemoveItem("add", "money", (100 * (v.value / 10)))
+                                            --utils.addRemoveItem("add", "money", (100 * (v.value / 10)))
 
                                             utils.showNotification(locale("injurie_treated"))
                                             utils.debug("Injury treated " .. dataToSend.bone)

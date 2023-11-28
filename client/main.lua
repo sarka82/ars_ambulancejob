@@ -1,4 +1,4 @@
-local DoesEntityExist = DoesEntityExist
+local DoesEntityExist = DoesEntityExistdo
 local DeletePed       = DeletePed
 local CreateThread    = CreateThread
 

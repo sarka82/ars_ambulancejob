@@ -309,7 +309,7 @@ RegisterNetEvent("ars_ambulancejob:playHealAnim", function(data)
 
 
         utils.useItem("defibrillator", Config.ConsumeItemPerUse)
-        utils.addRemoveItem("add", "money", Config.ReviveReward)
+        --utils.addRemoveItem("add", "money", Config.ReviveReward)
     elseif data.anim == "dead" then
         utils.showNotification("Getting revived")
 

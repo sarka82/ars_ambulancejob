@@ -5,7 +5,7 @@ Config                         = {}
 Config.Debug                   = false
 
 Config.ClothingScript          = 'illenium-appearance' -- 'illenium-appearance', 'fivem-appearance' ,'core' or false -- to disable
-Config.EmsJobs                 = { "ambulance", "ems" }
+Config.EmsJobs                 = { "ambulance", "doctor" }
 Config.RespawnTime             = 5                     -- in minutes
 Config.UseInterDistressSystem  = true
 Config.WaitTimeForNewCall      = 5                     -- minutes
@@ -22,12 +22,12 @@ Config.MedicBagProp            = "xm_prop_x17_bag_med_01a"
 Config.MedicBagItem            = "medicalbag"
 
 Config.HelpCommand             = "911"
-Config.RemoveItemsOnRespawn    = true
+Config.RemoveItemsOnRespawn    = false
 
-Config.BaseInjuryReward        = 150 -- changes if the injury value is higher then 1
-Config.ReviveReward            = 700
+--Config.BaseInjuryReward        = 150 -- changes if the injury value is higher then 1
+--Config.ReviveReward            = 700
 
-Config.ParamedicTreatmentPrice = 4000
+Config.ParamedicTreatmentPrice = 500
 
 Config.AmbulanceStretchers     = 2           -- how many stretchers should an ambunalce have
 Config.ConsumeItemPerUse       = 10          -- every time you use an item it gets used by 10%
@@ -40,6 +40,7 @@ Config.UsePedToDepositVehicle  = false       -- if false the vehicle will instan
 Config.EmsVehicles             = {           -- vehicles that have access to the props (cones and ecc..)
 	'ambulance',
 	'ambulance2',
+	'emsswift',
 }
 
 Config.DeathAnimations         = {
@@ -135,7 +136,9 @@ Config.Hospitals = {
 					{ name = 'bandage', price = 10 },
 				}
 			},
+			
 		},
+		
 		garage = {
 			['ems_garage_1'] = {
 				pedPos = vector4(291.2237, -614.9087, 42.4234, 332.9413),
@@ -157,6 +160,165 @@ Config.Hospitals = {
 		clothes = {
 			enable = true,
 			pos = vector4(300.7454, -597.4542, 42.2918, 298.0781),
+			model = 'a_f_m_bevhills_01',
+			male = {
+				[1] = {
+					['mask_1']    = 0,
+					['mask_2']    = 0,
+					['arms']      = 0,
+					['tshirt_1']  = 15,
+					['tshirt_2']  = 0,
+					['torso_1']   = 86,
+					['torso_2']   = 0,
+					['bproof_1']  = 0,
+					['bproof_2']  = 0,
+					['decals_1']  = 0,
+					['decals_2']  = 0,
+					['chain_1']   = 0,
+					['chain_2']   = 0,
+					['pants_1']   = 10,
+					['pants_2']   = 2,
+					['shoes_1']   = 56,
+					['shoes_2']   = 0,
+					['helmet_1']  = 34,
+					['helmet_2']  = 0,
+					['glasses_1'] = 34,
+					['glasses_2'] = 1,
+				},
+				[2] = {
+					['mask_1']    = 0,
+					['mask_2']    = 0,
+					['arms']      = 0,
+					['tshirt_1']  = 15,
+					['tshirt_2']  = 0,
+					['torso_1']   = 86,
+					['torso_2']   = 0,
+					['bproof_1']  = 0,
+					['bproof_2']  = 0,
+					['decals_1']  = 0,
+					['decals_2']  = 0,
+					['chain_1']   = 0,
+					['chain_2']   = 0,
+					['pants_1']   = 10,
+					['pants_2']   = 2,
+					['shoes_1']   = 56,
+					['shoes_2']   = 0,
+					['helmet_1']  = 34,
+					['helmet_2']  = 0,
+					['glasses_1'] = 34,
+					['glasses_2'] = 1,
+				},
+			},
+			female = {
+				[1] = {
+					['mask_1']    = 0,
+					['mask_2']    = 0,
+					['arms']      = 0,
+					['tshirt_1']  = 15,
+					['tshirt_2']  = 0,
+					['torso_1']   = 86,
+					['torso_2']   = 0,
+					['bproof_1']  = 0,
+					['bproof_2']  = 0,
+					['decals_1']  = 0,
+					['decals_2']  = 0,
+					['chain_1']   = 0,
+					['chain_2']   = 0,
+					['pants_1']   = 10,
+					['pants_2']   = 2,
+					['shoes_1']   = 56,
+					['shoes_2']   = 0,
+					['helmet_1']  = 34,
+					['helmet_2']  = 0,
+					['glasses_1'] = 34,
+					['glasses_2'] = 1,
+				},
+			},
+		},
+	},
+	["sandyshore"] = {
+		jobs = { "doctor" },
+		paramedic = {
+			model = "s_m_m_scientist_01",
+			pos = vector4(1768.11, 3641.61, 34.85, 167.14),
+		},
+		bossmenu = {
+			pos = vector3(313.8239, -590.3199, -243.2918),
+			min_grade = 2
+		},
+		zone = {
+			pos = vec3(299.0, -585.28, 43.28),
+			size = vec3(200.0, 200.0, 200.0),
+		},
+		blip = {
+			enable = true,
+			name = 'Hopital de Sandyshore',
+			type = 61,
+			scale = 1.0,
+			color = 2,
+			pos = vector3(1763.09, 3637.38, 34.85),
+		},
+		respawn = {
+			bedPoint = vector4(1741.38, 3624.48, 35.69, 32.14),
+			spawnPoint = vector4(1761.58, 3646.53, 34.85, 213.12)
+		},
+		stash = {
+			['ems_stash_1'] = {
+				slots = 50,
+				weight = 50, -- kg
+				min_grade = 0,
+				label = 'Armoire à pharmacie',
+				shared = true, -- false if you want to make everyone has a personal stash
+				pos = vector3(1756.75, 3636.14, 34.85)
+			}
+		},
+		pharmacy = {
+			["ems_shop_1"] = {
+				job = true,
+				label = "Fournitures médicales",
+				grade = 0, -- works only if job true
+				pos = vector3(-255.04, 6332.28, 32.43),
+				blip = {
+					enable = false,
+					name = 'Pharmacy',
+					type = 61,
+					scale = 0.7,
+					color = 2,
+					pos = vector3(-255.04, 6332.28, 32.43),
+				},
+				items = {
+					{ name = 'medicalbag',    price = 500 },
+					{ name = 'bandage',       price = 30},
+					{ name = 'defibrillator', price = 50 },
+					{ name = 'tweezers',      price = 50 },
+					{ name = 'burncream',     price = 50 },
+					{ name = 'suturekit',     price = 50 },
+					{ name = 'icepack',       price = 50 },
+				}
+			},
+		},
+		
+		garage = {
+			['ems_garage_1'] = {
+				pedPos = vector4(1763.01, 3632.96, 34.87, 127.25),
+				model = 'mp_m_weapexp_01',
+				spawn = vector4(1767.57, 3628.17, 34.54, 122.0),
+				deposit = vector4(1767.57, 3628.17, 34.54, 122.0),
+				driverSpawnCoords = vector3(1761.8, 3632.36, 34.86),
+
+				vehicles = {
+					{
+						label = 'Garage',
+						spawn_code = 'ambulance',
+						min_grade = 3,
+						modifications = {} -- es. {color1 = {255, 12, 25}}
+					},
+				}
+			}
+		},
+		clothes = {
+			enable = true,
+			pos = vector4(1784.73, 3652.73, 34.85, 34.14),
 			model = 'a_f_m_bevhills_01',
 			male = {
 				[1] = {
@@ -265,7 +427,7 @@ Config.BodyParts = {
 function Config.SendDistressCall(msg)
 	--[--] -- Quasar
 
-	-- TriggerServerEvent('qs-smartphone:server:sendJobAlert', {message = msg, location = GetEntityCoords(PlayerPedId())}, "ambulance")
+	TriggerServerEvent('qs-smartphone:server:sendJobAlert', {message = msg, location = GetEntityCoords(PlayerPedId())}, "ambulance")
 
 
 	--[--] -- GKS
